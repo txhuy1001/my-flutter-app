@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_app/constant/app_color.dart';
 
 import 'constant/data.dart';
@@ -24,7 +25,9 @@ class _HomePageState extends State<HomePage> {
       color: AppColor.background,
       child: Column(
         children: [
-          const SizedBox(height: 15,),
+          const SizedBox(
+            height: 15,
+          ),
           getActiveUsersBar(),
           const SizedBox(height: 18),
           getFriendMessageList(),
@@ -37,41 +40,60 @@ class _HomePageState extends State<HomePage> {
     return Expanded(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Column(
-          children: List.generate(userMessages.length, (index) {
-            return getAvatarWidgetWithRecentMessage(
-                '${userMessages[index]['firstName']} ${userMessages[index]['lastName']}',
-                userMessages[index]['avatarUrl'],
-                userMessages[index]['message'],
-                1);
-          }),
+        child: Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              top: BorderSide(width: 1.0, color: Color(0xFF000000)),
+            ),
+          ),
+          child: Column(
+            children: List.generate(userMessages.length, (index) {
+              return getAvatarWidgetWithRecentMessage(
+                  '${userMessages[index]['firstName']} ${userMessages[index]['lastName']}',
+                  userMessages[index]['avatarUrl'],
+                  userMessages[index]['message'],
+                  userMessages[index]['receivedTime'],
+                  userMessages[index]['unreadCount']);
+            }),
+          ),
         ),
       ),
     );
   }
 
-  Widget getAvatarWidgetWithRecentMessage(String fullName,
-      String avatarImageUrl, String recentMessage, int receivedTime) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16, bottom: 16, left: 15, right: 16),
+  Widget getAvatarWidgetWithRecentMessage(
+      String fullName,
+      String avatarImageUrl,
+      String recentMessage,
+      int receivedTime,
+      int unreadMessageCount) {
+    return Container(
+      padding: const EdgeInsets.only(left: 15),
       child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-
         Stack(
           children: [
             getAvatarWidget(avatarImageUrl),
             //Display unread messages on the avatar
-            Positioned(
-              bottom: 8,
-              left: 55,
+            unreadMessageCount > 0 ? Positioned(
+              bottom: 0,
+              left: 38,
               child: Container(
-                width: 20,
-                height: 20,
+                width: 22,
+                height: 22,
+                alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: AppColor.online,
                     shape: BoxShape.circle,
-                    border: Border.all(width: 3, color: AppColor.onlineBorder)),
+                    border: Border.all(width: 1, color: AppColor.onlineBorder)),
+                child: Text(
+                  unreadMessageCount.toString(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13),
+                ),
               ),
-            ),
+            ) : Container(),
           ],
         ),
         const SizedBox(
@@ -79,35 +101,58 @@ class _HomePageState extends State<HomePage> {
         ),
         Expanded(
           child: Container(
+            height: 92,
             decoration: const BoxDecoration(
               border: Border(
+                // left: BorderSide(width: 1.0, color: Color(0xFF000000)),
+                // right: BorderSide(width: 1.0, color: Color(0xFF000000)),
+                // top: BorderSide(width: 1.0, color: Color(0xFF000000)),
                 bottom: BorderSide(width: 1.0, color: Color(0xFF000000)),
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //Display full name
-                Text(
-                  fullName,
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                      fontSize: 17),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                //Display recent message
-                Text(
-                  recentMessage,
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.white, fontSize: 17),
-                ),
-              ],
+            child: Container(
+              padding: const EdgeInsets.only(top: 16, bottom: 16, right: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //Display full name and message received time
+                  Row(
+                    children: [
+                      //Display full name
+                      Expanded(
+                        child: Text(
+                          fullName,
+                          textAlign: TextAlign.left,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              fontSize: 17),
+                        ),
+                      ),
+                      //Display received time
+                      Text(
+                        DateFormat('KK:mm a').format(DateTime.fromMicrosecondsSinceEpoch(receivedTime)),
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            color: AppColor.receivedTimeColor,
+                            fontSize: 13),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  //Display recent message
+                  Text(
+                    recentMessage,
+                    textAlign: TextAlign.left,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: Colors.white, fontSize: 17),
+                  ),
+                ],
+              ),
             ),
           ),
         )
@@ -133,8 +178,9 @@ class _HomePageState extends State<HomePage> {
   Widget getAvatarWidgetWithOnlineStatus(
       String avatarImageUrl, String userFirstName) {
     return Padding(
-      padding: const EdgeInsets.only(top: 15, left: 0, right: 20, bottom: 18),
+      padding: const EdgeInsets.only(left: 0, right: 20),
       child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           //Display avatar with online status
           Stack(
@@ -145,8 +191,8 @@ class _HomePageState extends State<HomePage> {
                 bottom: 1,
                 left: 40,
                 child: Container(
-                  width: 20,
-                  height: 20,
+                  width: 18,
+                  height: 18,
                   decoration: BoxDecoration(
                       color: AppColor.online,
                       shape: BoxShape.circle,
