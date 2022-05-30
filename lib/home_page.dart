@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:my_app/constant/app_color.dart';
+import 'package:my_app/constant/app_style.dart';
 
 import 'constant/data.dart';
 
@@ -74,26 +74,28 @@ class _HomePageState extends State<HomePage> {
           children: [
             getAvatarWidget(avatarImageUrl),
             //Display unread messages on the avatar
-            unreadMessageCount > 0 ? Positioned(
-              bottom: 0,
-              left: 38,
-              child: Container(
-                width: 22,
-                height: 22,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: AppColor.online,
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 1, color: AppColor.onlineBorder)),
-                child: Text(
-                  unreadMessageCount.toString(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13),
-                ),
-              ),
-            ) : Container(),
+            unreadMessageCount > 0
+                ? Positioned(
+                    bottom: 0,
+                    left: 38,
+                    child: Container(
+                      width: 22,
+                      height: 22,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: AppColor.online,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              width: 1, color: AppColor.onlineBorder)),
+                      child: Text(
+                        unreadMessageCount.toString(),
+                        textAlign: TextAlign.center,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 13),
+                      ),
+                    ),
+                  )
+                : Container(),
           ],
         ),
         const SizedBox(
@@ -125,19 +127,15 @@ class _HomePageState extends State<HomePage> {
                           fullName,
                           textAlign: TextAlign.left,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              fontSize: 17),
+                          style: AppTextStyle.textFriendFullName,
                         ),
                       ),
                       //Display received time
                       Text(
-                        DateFormat('KK:mm a').format(DateTime.fromMicrosecondsSinceEpoch(receivedTime)),
+                        AppTextStyle.messageReceivedTime.format(
+                            DateTime.fromMicrosecondsSinceEpoch(receivedTime)),
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            color: AppColor.receivedTimeColor,
-                            fontSize: 13),
+                        style: AppTextStyle.textReceivedTime,
                       ),
                     ],
                   ),
@@ -149,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                     recentMessage,
                     textAlign: TextAlign.left,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(color: Colors.white, fontSize: 17),
+                    style: AppTextStyle.textRecentMessage,
                   ),
                 ],
               ),
@@ -210,16 +208,11 @@ class _HomePageState extends State<HomePage> {
           //Display online user name
           SizedBox(
             width: 70,
-            child: Text(
-              userFirstName,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 11),
-            ),
-          ),
+            child: Text(userFirstName,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextStyle.textOnlineUser),
+          )
         ],
       ),
     );

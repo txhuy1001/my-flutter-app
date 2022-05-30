@@ -15,7 +15,7 @@ List users = [
     "userId": 3,
     "firstName": "Ada",
     "lastName": "Reyes",
-    "avatarUrl": "assets/images/5.webp"
+    "avatarUrl": "assets/images/13.webp"
   },
   {
     "userId": 4,
@@ -90,7 +90,7 @@ List userMessages = [
     "receivedTime": 1650343800,
     "firstName": "John",
     "lastName": "Kenedy",
-    "avatarUrl": "assets/images/8.webp"
+    "avatarUrl": "assets/images/12.webp"
   },
   {
     "userId": 7,
@@ -99,7 +99,7 @@ List userMessages = [
     "receivedTime": 1650343800,
     "firstName": "Donald",
     "lastName": "Trump",
-    "avatarUrl": "assets/images/1.webp"
+    "avatarUrl": "assets/images/11.webp"
   },{
     "userId": 8,
     "message": "See you tomorrow!",
@@ -107,14 +107,14 @@ List userMessages = [
     "receivedTime": 1650343800,
     "firstName": "Marry",
     "lastName": "Magaret",
-    "avatarUrl": "assets/images/3.webp"
+    "avatarUrl": "assets/images/9.webp"
   },
 ];
 
 List activeUsers = [
   {"firstName": "Christopher", "avatarUrl": "assets/images/1.webp"},
   {"firstName": "Reese", "avatarUrl": "assets/images/2.webp"},
-  {"firstName": "Jeffrey", "avatarUrl": "assets/images/3.webp"},
+  {"firstName": "Jeffrey", "avatarUrl": "assets/images/10.webp"},
   {"firstName": "Laura", "avatarUrl": "assets/images/4.webp"},
   {"firstName": "Sue", "avatarUrl": "assets/images/5.webp"},
   {"firstName": "Dean", "avatarUrl": "assets/images/6.webp"},
