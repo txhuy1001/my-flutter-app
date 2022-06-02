@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:my_app/service/user_service.dart';
 
-import 'home_page.dart';
+import 'view/home_page.dart';
+
 
 void main() {
+
   runApp(const MyApp());
 }
 

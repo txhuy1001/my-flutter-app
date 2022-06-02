@@ -8,4 +8,6 @@ class AppColor {
   static const Color receivedTimeColor = Color(0xFF4E586E);
   static const Color onlineBorder = Colors.white;
   static const Color defaultTextColor = Colors.white;
+  static const Color focusedIconColor = Color(0xFFF54B64);
+  static const Color unfocusedIconColor = Color(0xFF4E586E);
 }
