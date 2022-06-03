@@ -29,6 +29,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    super.initState();
+
     getIt.registerSingleton<UserService>(UserService(), signalsReady: true);
 
     getIt<UserService>().loadData().whenComplete(() {
@@ -58,28 +60,26 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget getTopBarNavigator() {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextButton(
-            onPressed: () {},
-            child: const Icon(
-              Icons.arrow_back,
-              color: AppColor.defaultTextColor,
-              size: 28,
-            ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        TextButton(
+          onPressed: () {},
+          child: const Icon(
+            Icons.arrow_back,
+            color: AppColor.defaultTextColor,
+            size: 28,
           ),
-          TextButton(
-            onPressed: () {},
-            child: const Icon(
-              Icons.add,
-              color: AppColor.defaultTextColor,
-              size: 38,
-            ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: const Icon(
+            Icons.add,
+            color: AppColor.defaultTextColor,
+            size: 38,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -92,26 +92,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget getFriendMessageList() {
-    return Container(
-      child: Expanded(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                top: BorderSide(width: 1.0, color: Color(0xFF000000)),
-              ),
+    return Expanded(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              top: BorderSide(width: 1.0, color: Color(0xFF000000)),
             ),
-            child: Column(
-              children: List.generate(chats.length, (index) {
-                return getAvatarWidgetWithRecentMessage(
-                    chats[index].user!.name!,
-                    chats[index].user!.picture!.thumbnail!,
-                    chats[index].text!,
-                    chats[index].createdAt!,
-                    chats[index].unreadCount!);
-              }),
-            ),
+          ),
+          child: Column(
+            children: List.generate(chats.length, (index) {
+              return getAvatarWidgetWithRecentMessage(
+                  chats[index].user!.name!,
+                  chats[index].user!.picture!.thumbnail!,
+                  chats[index].text!,
+                  chats[index].createdAt!,
+                  chats[index].unreadCount!);
+            }),
           ),
         ),
       ),
